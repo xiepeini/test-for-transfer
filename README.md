@@ -49,3 +49,5 @@ output as HiveQl text or Hive AST.
 </table>
 
  - You can also click [here](http://intel-hadoop.github.io/project-panthera-ase/) to see what ASE supports in detail.
+### Example of usage ###
+ [spark on panthera](https://github.com/intel-hadoop/spark/compare/panthera)
