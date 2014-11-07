@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -44,7 +44,7 @@ public class RegularIdGenerator extends BaseHiveASTGenerator {
     //
     CommonTree Parent = (CommonTree) currentSqlNode.getParent();
     if (Parent != null && Parent.getType() == PantheraParser_PLSQLParser.EXTRACT_VK) {
-      ASTNode funcName = SqlXlateUtil.newASTNode(HiveParser.Identifier, currentSqlNode.getText());
+      ASTNode funcName = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, currentSqlNode.getText());
       attachHiveNode(hiveRoot, currentHiveNode, funcName);
       //
       // This should be leaf node.

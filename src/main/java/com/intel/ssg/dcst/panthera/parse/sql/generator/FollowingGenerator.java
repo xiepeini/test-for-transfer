@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -36,11 +36,11 @@ public class FollowingGenerator extends BaseHiveASTGenerator {
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
     ASTNode ret;
     String text = currentSqlNode.getText();
-    ret = super.newHiveASTNode(HiveParser.KW_FOLLOWING, text);
+    ret = super.newHiveASTNode(PantheraHiveParser.KW_FOLLOWING, text);
     if (currentHiveNode.getText().equals("unbounded")) {
       currentHiveNode.getToken().setText(text);
       currentHiveNode.getToken().setType(ret.getType());
-      ret = super.newHiveASTNode(HiveParser.KW_UNBOUNDED, "unbounded");
+      ret = super.newHiveASTNode(PantheraHiveParser.KW_UNBOUNDED, "unbounded");
     }
     super.attachHiveNode(hiveRoot, currentHiveNode, ret);
     return super.generateChildren(hiveRoot, sqlRoot, ret, currentSqlNode, context);

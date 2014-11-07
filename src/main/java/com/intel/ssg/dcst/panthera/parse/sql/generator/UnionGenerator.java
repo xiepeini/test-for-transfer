@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -30,7 +30,7 @@ public class UnionGenerator extends BaseHiveASTGenerator {
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
 
-    ASTNode union = super.newHiveASTNode(HiveParser.TOK_UNION, "TOK_UNION");
+    ASTNode union = super.newHiveASTNode(PantheraHiveParser.TOK_UNION, "TOK_UNION");
     ASTNode firstQuery = (ASTNode) currentHiveNode.deleteChild(1);//union must have alias
     super.attachHiveNode(hiveRoot, union, firstQuery);
     super.attachHiveNode(hiveRoot, currentHiveNode, union);

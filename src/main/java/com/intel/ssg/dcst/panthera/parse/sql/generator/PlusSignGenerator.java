@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -37,7 +37,7 @@ public class PlusSignGenerator extends BaseHiveASTGenerator {
       return true;
     }
 
-    return super.baseProcess(HiveParser.PLUS, "+", hiveRoot, sqlRoot, currentHiveNode, currentSqlNode, context);
+    return super.baseProcess(PantheraHiveParser.PLUS, "+", hiveRoot, sqlRoot, currentHiveNode, currentSqlNode, context);
   }
 
 }

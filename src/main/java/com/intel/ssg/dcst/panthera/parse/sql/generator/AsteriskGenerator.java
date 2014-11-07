@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -35,7 +35,7 @@ public class AsteriskGenerator extends BaseHiveASTGenerator {
       // If * has any child, it must be a multiplication operator with two children.
       //
       assert (currentSqlNode.getChildCount() == 2);
-      ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.STAR, "*");
+      ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.STAR, "*");
       currentHiveNode.addChild(ret);
       return generateChildren(hiveRoot, sqlRoot, ret, currentSqlNode, context);
     } else {

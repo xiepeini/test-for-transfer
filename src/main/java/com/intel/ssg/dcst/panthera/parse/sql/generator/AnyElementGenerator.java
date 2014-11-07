@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -41,10 +41,10 @@ public class AnyElementGenerator extends BaseHiveASTGenerator {
 
     if (currentSqlNode.getChildCount() > 1) {
       // two leaf with ANY_ELEMENT
-      ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.DOT, ".");
+      ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.DOT, ".");
       super.attachHiveNode(hiveRoot, currentHiveNode, ret);
       currentHiveNode = ret;
-      ret = SqlXlateUtil.newASTNode(HiveParser.TOK_TABLE_OR_COL, "TOK_TABLE_OR_COL");
+      ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_TABLE_OR_COL, "TOK_TABLE_OR_COL");
       super.attachHiveNode(hiveRoot, currentHiveNode, ret);
       super.generateChildrenExcept(hiveRoot, sqlRoot, ret, currentSqlNode, context, 1);
       return super.generateChildrenExcept(hiveRoot, sqlRoot, currentHiveNode, currentSqlNode,
@@ -58,7 +58,7 @@ public class AnyElementGenerator extends BaseHiveASTGenerator {
           || leafText.contains("\"") || leafText.contains("'")) {
         return super.generateChildren(hiveRoot, sqlRoot, currentHiveNode, currentSqlNode, context);
       }
-      ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.TOK_TABLE_OR_COL, "TOK_TABLE_OR_COL");
+      ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_TABLE_OR_COL, "TOK_TABLE_OR_COL");
       super.attachHiveNode(hiveRoot, currentHiveNode, ret);
       return super.generateChildren(hiveRoot, sqlRoot, ret, currentSqlNode, context);
     }

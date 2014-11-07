@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -33,7 +33,7 @@ public class TrimGenerator extends BaseHiveASTGenerator {
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
     // node trim is a node of "trim"
-    ASTNode trim = SqlXlateUtil.newASTNode(HiveParser.Identifier, currentSqlNode.getText());
+    ASTNode trim = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, currentSqlNode.getText());
     int count = currentSqlNode.getChildCount();
     if (count == 1) {
       super.attachHiveNode(hiveRoot, currentHiveNode, trim);
@@ -86,23 +86,23 @@ public class TrimGenerator extends BaseHiveASTGenerator {
       CommonTree trimHandle, TranslateContext context) throws SqlXlateException {
     // use '^A' the control character as the temporary char
     String protectChar = "'" + String.valueOf('\10') + "'";
-    ASTNode replaceUProtect = SqlXlateUtil.newASTNode(HiveParser.Identifier, "regexp_replace");
-    ASTNode replaceRecover = SqlXlateUtil.newASTNode(HiveParser.Identifier, "regexp_replace");
-    ASTNode replacePrepare = SqlXlateUtil.newASTNode(HiveParser.Identifier, "regexp_replace");
-    ASTNode replaceProtect = SqlXlateUtil.newASTNode(HiveParser.Identifier, "regexp_replace");
-    ASTNode functionRecover = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
-    ASTNode functionTrim = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
-    ASTNode functionPrepare = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
-    ASTNode functionProtect = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode replaceUProtect = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, "regexp_replace");
+    ASTNode replaceRecover = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, "regexp_replace");
+    ASTNode replacePrepare = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, "regexp_replace");
+    ASTNode replaceProtect = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, "regexp_replace");
+    ASTNode functionRecover = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode functionTrim = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode functionPrepare = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode functionProtect = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
     super.attachHiveNode(hiveRoot, currentHiveNode, replaceUProtect);
     super.attachHiveNode(hiveRoot, currentHiveNode, functionRecover);
-    ASTNode uProtect = SqlXlateUtil.newASTNode(HiveParser.StringLiteral, protectChar);
-    ASTNode spaceUProtect = SqlXlateUtil.newASTNode(HiveParser.StringLiteral, "' '");
+    ASTNode uProtect = SqlXlateUtil.newASTNode(PantheraHiveParser.StringLiteral, protectChar);
+    ASTNode spaceUProtect = SqlXlateUtil.newASTNode(PantheraHiveParser.StringLiteral, "' '");
     super.attachHiveNode(hiveRoot, currentHiveNode, uProtect);
     super.attachHiveNode(hiveRoot, currentHiveNode, spaceUProtect);
     super.attachHiveNode(hiveRoot, functionRecover, replaceRecover);
     super.attachHiveNode(hiveRoot, functionRecover, functionTrim);
-    ASTNode spaceRecover = SqlXlateUtil.newASTNode(HiveParser.StringLiteral, "' '");
+    ASTNode spaceRecover = SqlXlateUtil.newASTNode(PantheraHiveParser.StringLiteral, "' '");
     super.attachHiveNode(hiveRoot, functionRecover, spaceRecover);
     if (!GeneratorFactory.getGenerator(trimChar).generateHiveAST(hiveRoot, sqlRoot,
         functionRecover, trimChar, context)) {
@@ -116,15 +116,15 @@ public class TrimGenerator extends BaseHiveASTGenerator {
         functionPrepare, trimChar, context)) {
       return false;
     }
-    ASTNode spacePrepare = SqlXlateUtil.newASTNode(HiveParser.StringLiteral, "' '");
+    ASTNode spacePrepare = SqlXlateUtil.newASTNode(PantheraHiveParser.StringLiteral, "' '");
     super.attachHiveNode(hiveRoot, functionPrepare, spacePrepare);
     super.attachHiveNode(hiveRoot, functionProtect, replaceProtect);
     if (!GeneratorFactory.getGenerator(trimHandle).generateHiveAST(hiveRoot, sqlRoot,
         functionProtect, trimHandle, context)) {
       return false;
     }
-    ASTNode spaceProtect = SqlXlateUtil.newASTNode(HiveParser.StringLiteral, "' '");
-    ASTNode protect = SqlXlateUtil.newASTNode(HiveParser.StringLiteral, protectChar);
+    ASTNode spaceProtect = SqlXlateUtil.newASTNode(PantheraHiveParser.StringLiteral, "' '");
+    ASTNode protect = SqlXlateUtil.newASTNode(PantheraHiveParser.StringLiteral, protectChar);
     super.attachHiveNode(hiveRoot, functionProtect, spaceProtect);
     super.attachHiveNode(hiveRoot, functionProtect, protect);
     return true;

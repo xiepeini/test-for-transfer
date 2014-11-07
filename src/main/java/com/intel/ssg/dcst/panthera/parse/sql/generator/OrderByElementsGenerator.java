@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -30,8 +30,8 @@ public class OrderByElementsGenerator extends BaseHiveASTGenerator {
   @Override
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
-    ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.TOK_ORDERBY, "TOK_ORDERBY");
-    ASTNode tokQuery = (ASTNode) currentHiveNode.getFirstChildWithType(HiveParser.TOK_QUERY);
+    ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_ORDERBY, "TOK_ORDERBY");
+    ASTNode tokQuery = (ASTNode) currentHiveNode.getFirstChildWithType(PantheraHiveParser.TOK_QUERY);
     if (tokQuery != null) {
       super.attachHiveNode(hiveRoot, (ASTNode) tokQuery.getChild(1), ret);
     } else { // for windowing function over clause, e.g. over(order by col1)

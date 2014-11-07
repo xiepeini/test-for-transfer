@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -31,13 +31,13 @@ public class TypeNameGenerator extends BaseHiveASTGenerator {
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
     CommonTree tree = (CommonTree) currentSqlNode.getChild(0);
     if (tree.getText().equalsIgnoreCase("bigint")) {
-      return super.baseProcess(HiveParser.TOK_BIGINT, "TOK_BIGINT", hiveRoot, sqlRoot, currentHiveNode,
+      return super.baseProcess(PantheraHiveParser.TOK_BIGINT, "TOK_BIGINT", hiveRoot, sqlRoot, currentHiveNode,
           tree, context);
     } else if (tree.getText().equalsIgnoreCase("tinyint")) {
-      return super.baseProcess(HiveParser.TOK_TINYINT, "TOK_TINYINT", hiveRoot, sqlRoot, currentHiveNode,
+      return super.baseProcess(PantheraHiveParser.TOK_TINYINT, "TOK_TINYINT", hiveRoot, sqlRoot, currentHiveNode,
           tree, context);
     } else if (tree.getText().equalsIgnoreCase("binary")) {
-      return super.baseProcess(HiveParser.TOK_BINARY, "TOK_BINARY", hiveRoot, sqlRoot, currentHiveNode,
+      return super.baseProcess(PantheraHiveParser.TOK_BINARY, "TOK_BINARY", hiveRoot, sqlRoot, currentHiveNode,
           tree, context);
     }
     throw new SqlXlateException (tree, "not supprted type: " + tree.getText());

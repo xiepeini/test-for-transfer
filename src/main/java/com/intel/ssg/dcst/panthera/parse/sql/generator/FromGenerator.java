@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -30,7 +30,7 @@ public class FromGenerator extends BaseHiveASTGenerator {
   @Override
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
-    ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.TOK_FROM, "TOK_FROM");
+    ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FROM, "TOK_FROM");
     super.attachHiveNode(hiveRoot, currentHiveNode, ret);
     return super.generateChildren(hiveRoot, sqlRoot, ret, currentSqlNode, context);
   }

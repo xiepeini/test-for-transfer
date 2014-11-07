@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -38,7 +38,7 @@ public class UnsignedIntegerGenerator extends BaseHiveASTGenerator {
     if (numericLiteral.charAt(0) == '.') {
       numericLiteral = "0" + numericLiteral;
     }
-    ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.Number, numericLiteral);
+    ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.Number, numericLiteral);
     super.attachHiveNode(hiveRoot, currentHiveNode, ret);
     return true;
   }

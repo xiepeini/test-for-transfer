@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -31,11 +31,11 @@ public class UnaryOperatorGenerator extends BaseHiveASTGenerator {
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
     String operator = currentSqlNode.getText();
     if ("+".equals(operator)) {
-      return super.baseProcess(HiveParser.PLUS, operator, hiveRoot, sqlRoot, currentHiveNode,
+      return super.baseProcess(PantheraHiveParser.PLUS, operator, hiveRoot, sqlRoot, currentHiveNode,
           currentSqlNode, context);
     }
     if ("-".equals(operator)) {
-      return super.baseProcess(HiveParser.MINUS, currentSqlNode.getText(), hiveRoot, sqlRoot,
+      return super.baseProcess(PantheraHiveParser.MINUS, currentSqlNode.getText(), hiveRoot, sqlRoot,
           currentHiveNode, currentSqlNode, context);
     }
     throw new SqlXlateException(currentSqlNode, "Unsupportd unary operator:" + operator);

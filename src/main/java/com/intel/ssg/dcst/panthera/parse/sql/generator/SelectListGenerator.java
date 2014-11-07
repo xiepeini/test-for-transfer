@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -34,9 +34,9 @@ public class SelectListGenerator extends BaseHiveASTGenerator {
     CommonTree parent = (CommonTree) currentSqlNode.getParent();
     ASTNode ret;
     if (parent.getFirstChildWithType(PantheraParser_PLSQLParser.SQL92_RESERVED_DISTINCT) != null) {
-      ret = super.newHiveASTNode(HiveParser.TOK_SELECTDI, "TOK_SELECTDI");
+      ret = super.newHiveASTNode(PantheraHiveParser.TOK_SELECTDI, "TOK_SELECTDI");
     } else {
-      ret = super.newHiveASTNode(HiveParser.TOK_SELECT, "TOK_SELECT");
+      ret = super.newHiveASTNode(PantheraHiveParser.TOK_SELECT, "TOK_SELECT");
     }
     super.attachHiveNode(hiveRoot, currentHiveNode, ret);
     return super.generateChildren(hiveRoot, sqlRoot, ret, currentSqlNode, context);

@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -39,12 +39,12 @@ public class SearchedCaseGenerator extends BaseHiveASTGenerator {
     //
     // Create a HIVE TOK_FUNCTION node and attach it to the current HIVE node.
     //
-    ASTNode func = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode func = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
     attachHiveNode(hiveRoot, currentHiveNode, func);
     //
     // Create a HIVE Identifier node as the first child of the TOK_FUNCTION node.
     //
-    ASTNode identifer = SqlXlateUtil.newASTNode(HiveParser.Identifier, "when");
+    ASTNode identifer = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, "when");
     attachHiveNode(hiveRoot, func, identifer);
 
     return super.generateChildren(hiveRoot, sqlRoot, func, currentSqlNode, context);

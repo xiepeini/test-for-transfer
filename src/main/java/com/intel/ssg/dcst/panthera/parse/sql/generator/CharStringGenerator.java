@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -56,7 +56,7 @@ public class CharStringGenerator extends BaseHiveASTGenerator {
     } else {
       pcopy = prepare.substring(i).replaceAll("\'\'", "\\\\\'").replaceAll(";", "\\;");
     }
-    ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.StringLiteral, nflag ? "n" + pcopy : pcopy);
+    ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.StringLiteral, nflag ? "n" + pcopy : pcopy);
 
     //
     // Special handling for Date value expression.
@@ -74,8 +74,8 @@ public class CharStringGenerator extends BaseHiveASTGenerator {
         int childCount = currentHiveNode.getChildCount();
         assert (childCount > 0);
         ASTNode node = (ASTNode) currentHiveNode.getChild(childCount - 1);
-        assert(node.getType() == HiveParser.TOK_FUNCTION && node.getChildCount() == 1);
-        assert(((ASTNode) node.getChild(0)).getType() == HiveParser.TOK_DATE);
+        assert(node.getType() == PantheraHiveParser.TOK_FUNCTION && node.getChildCount() == 1);
+        assert(((ASTNode) node.getChild(0)).getType() == PantheraHiveParser.TOK_DATE);
         attachHiveNode(hiveRoot, node, ret);
         return true;
       }

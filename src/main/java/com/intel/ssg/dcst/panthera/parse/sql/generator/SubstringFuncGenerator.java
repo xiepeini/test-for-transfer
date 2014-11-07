@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -42,7 +42,7 @@ public class SubstringFuncGenerator extends BaseHiveASTGenerator {
     // Translate the substring SQL node to a HIVE Identifier node whose text is "substring" and attach it
     // to currentHiveNode as the first child.
     //
-    ASTNode funcName = SqlXlateUtil.newASTNode(HiveParser.Identifier, "substring");
+    ASTNode funcName = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, "substring");
     attachHiveNode(hiveRoot, currentHiveNode, funcName);
     //
     // The children (arguments for substring function) of this substring SQL node will be translated into

@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -32,11 +32,11 @@ public class IdGenerator extends BaseHiveASTGenerator {
     ASTNode ret;
     String text = currentSqlNode.getText();
     if (currentSqlNode.getText().contains("\"") || currentSqlNode.getText().contains("'")) {
-      ret = super.newHiveASTNode(HiveParser.StringLiteral, currentSqlNode.getText());
+      ret = super.newHiveASTNode(PantheraHiveParser.StringLiteral, currentSqlNode.getText());
     } else if (currentSqlNode.getText().toLowerCase().equals("null")) {
-      ret = super.newHiveASTNode(HiveParser.TOK_NULL, "TOK_NULL");
+      ret = super.newHiveASTNode(PantheraHiveParser.TOK_NULL, "TOK_NULL");
     } else {
-      ret = super.newHiveASTNode(HiveParser.Identifier, text);
+      ret = super.newHiveASTNode(PantheraHiveParser.Identifier, text);
     }
     super.attachHiveNode(hiveRoot, currentHiveNode, ret);
     // even if the node is leaf, still can call generateChildren.

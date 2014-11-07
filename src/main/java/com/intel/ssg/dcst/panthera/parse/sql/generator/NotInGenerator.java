@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.PantheraExpParser;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
@@ -30,7 +30,7 @@ public class NotInGenerator extends BaseHiveASTGenerator {
   @Override
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
-    ASTNode not = super.newHiveASTNode(HiveParser.KW_NOT, "NOT");
+    ASTNode not = super.newHiveASTNode(PantheraHiveParser.KW_NOT, "NOT");
     super.attachHiveNode(hiveRoot, currentHiveNode, not);
     currentHiveNode = not;
     return GeneratorFactory.getGenerator(currentSqlNode, PantheraExpParser.SQL92_RESERVED_IN).generateHiveAST(

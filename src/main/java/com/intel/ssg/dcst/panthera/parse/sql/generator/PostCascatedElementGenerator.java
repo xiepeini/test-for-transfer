@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -29,9 +29,9 @@ public class PostCascatedElementGenerator extends BaseHiveASTGenerator {
   @Override
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
-    if (currentHiveNode.getChildCount() == 2&&currentHiveNode.getType()==HiveParser.TOK_SELEXPR) {
+    if (currentHiveNode.getChildCount() == 2&&currentHiveNode.getType()==PantheraHiveParser.TOK_SELEXPR) {
 
-      ASTNode dot = super.newHiveASTNode(HiveParser.DOT, ".");
+      ASTNode dot = super.newHiveASTNode(PantheraHiveParser.DOT, ".");
       dot.addChild((ASTNode) currentHiveNode.getChild(0));
       // if children count == 2 the second should only be text element
       dot.addChild((ASTNode) currentHiveNode.getChild(1).getChild(0));

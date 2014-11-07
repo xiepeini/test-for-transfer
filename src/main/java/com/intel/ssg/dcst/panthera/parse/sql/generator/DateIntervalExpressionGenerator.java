@@ -23,7 +23,7 @@ import java.util.Calendar;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -113,17 +113,17 @@ public class DateIntervalExpressionGenerator extends BaseHiveASTGenerator {
       //
       // Create a HIVE TOK_FUNCTION node and attach it to the current HIVE node.
       //
-      ASTNode func = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+      ASTNode func = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
       attachHiveNode(hiveRoot, currentHiveNode, func);
       //
       // Create a HIVE TOK_DATE node as the first child of the TOK_FUNCTION node
       //
-      ASTNode dateNode = SqlXlateUtil.newASTNode(HiveParser.TOK_DATE, "TOK_DATE");
+      ASTNode dateNode = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_DATE, "TOK_DATE");
       attachHiveNode(hiveRoot, func, dateNode);
       //
       // Create a HIVE StringLiteral node as the second child of the TOK_FUNCTION node
       //
-      ASTNode stringLiteral = SqlXlateUtil.newASTNode(HiveParser.StringLiteral, "'" + result + "'");
+      ASTNode stringLiteral = SqlXlateUtil.newASTNode(PantheraHiveParser.StringLiteral, "'" + result + "'");
       attachHiveNode(hiveRoot, func, stringLiteral);
 
       return true;

@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -39,12 +39,12 @@ public class BetweenGenerator extends BaseHiveASTGenerator {
     //
     // Create a HIVE TOK_FUNCTION node and attach it to the current HIVE node.
     //
-    ASTNode func = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode func = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
     attachHiveNode(hiveRoot, currentHiveNode, func);
     //
     // Create a HIVE Identifier node as the first child of the TOK_FUNCTION node.
     //
-    ASTNode identifer = SqlXlateUtil.newASTNode(HiveParser.Identifier, "between");
+    ASTNode identifer = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, "between");
     attachHiveNode(hiveRoot, func, identifer);
 
     //
@@ -53,9 +53,9 @@ public class BetweenGenerator extends BaseHiveASTGenerator {
 
     ASTNode notBetween;
     if (currentSqlNode.getType() == PantheraParser_PLSQLParser.SQL92_RESERVED_BETWEEN) {
-      notBetween = SqlXlateUtil.newASTNode(HiveParser.KW_FALSE, "KW_FALSE");
+      notBetween = SqlXlateUtil.newASTNode(PantheraHiveParser.KW_FALSE, "KW_FALSE");
     } else {
-      notBetween = SqlXlateUtil.newASTNode(HiveParser.KW_TRUE, "KW_TRUE");
+      notBetween = SqlXlateUtil.newASTNode(PantheraHiveParser.KW_TRUE, "KW_TRUE");
     }
     attachHiveNode(hiveRoot, func, notBetween);
 

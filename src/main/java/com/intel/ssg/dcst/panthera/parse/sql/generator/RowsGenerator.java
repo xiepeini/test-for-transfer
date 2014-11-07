@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -35,9 +35,9 @@ public class RowsGenerator extends BaseHiveASTGenerator {
   @Override
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
-    ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.TOK_WINDOWRANGE, "TOK_WINDOWRANGE");
+    ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_WINDOWRANGE, "TOK_WINDOWRANGE");
     ASTNode winSpec = (ASTNode) currentHiveNode.getParent();
-    if (winSpec.getType() != HiveParser.TOK_WINDOWSPEC) {
+    if (winSpec.getType() != PantheraHiveParser.TOK_WINDOWSPEC) {
       throw new SqlXlateException(currentSqlNode, "unsupported over clause for window function.");
     }
     super.attachHiveNode(hiveRoot, winSpec, ret);

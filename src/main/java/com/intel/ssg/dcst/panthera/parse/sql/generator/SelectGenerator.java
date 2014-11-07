@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -33,7 +33,7 @@ public class SelectGenerator extends BaseHiveASTGenerator {
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
 
-    ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.TOK_QUERY, "TOK_QUERY");
+    ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_QUERY, "TOK_QUERY");
     attachHiveNode(hiveRoot,currentHiveNode,ret);
 
     currentHiveNode = ret;
@@ -44,7 +44,7 @@ public class SelectGenerator extends BaseHiveASTGenerator {
       return false;
     }
 
-     ret = SqlXlateUtil.newASTNode(HiveParser.TOK_INSERT, "TOK_INSERT");
+     ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_INSERT, "TOK_INSERT");
     super.attachHiveNode(hiveRoot, currentHiveNode, ret);
     currentHiveNode = ret;
     if (currentSqlNode.getParent().getParent().getParent().getType() == PantheraParser_PLSQLParser.SINGLE_TABLE_MODE
@@ -63,12 +63,12 @@ public class SelectGenerator extends BaseHiveASTGenerator {
           && into.getChild(1).getChildCount() != 0) {
         LOG.info("columns for INSERET INTO are not supported, will be ignored!");
       }
-      ASTNode insertInto = SqlXlateUtil.newASTNode(HiveParser.TOK_INSERT_INTO, "TOK_INSERT_INTO");
-      ASTNode tab = SqlXlateUtil.newASTNode(HiveParser.TOK_TAB, "TOK_TAB");
+      ASTNode insertInto = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_INSERT_INTO, "TOK_INSERT_INTO");
+      ASTNode tab = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_TAB, "TOK_TAB");
       insertInto.addChild(tab);
-      ASTNode tabName = SqlXlateUtil.newASTNode(HiveParser.TOK_TABNAME, "TOK_TABNAME");
+      ASTNode tabName = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_TABNAME, "TOK_TABNAME");
       tab.addChild(tabName);
-      ASTNode id = SqlXlateUtil.newASTNode(HiveParser.Identifier, tableViewName);
+      ASTNode id = SqlXlateUtil.newASTNode(PantheraHiveParser.Identifier, tableViewName);
       tabName.addChild(id);
       ret = insertInto;
     } else {

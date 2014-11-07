@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -40,12 +40,12 @@ public class DateGenerator extends BaseHiveASTGenerator {
     //
     // Create a HIVE TOK_FUNCTION node and attach it to the current HIVE node.
     //
-    ASTNode func = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode func = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
     attachHiveNode(hiveRoot, currentHiveNode, func);
     //
     // Create a HIVE TOK_DATE node as the first child of the TOK_FUNCTION node
     //
-    ASTNode date = SqlXlateUtil.newASTNode(HiveParser.TOK_DATE, "TOK_DATE");
+    ASTNode date = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_DATE, "TOK_DATE");
     attachHiveNode(hiveRoot, func, date);
 
     assert(currentSqlNode.getChildren() == null || currentSqlNode.getChildren().size() == 0);

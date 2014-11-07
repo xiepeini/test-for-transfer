@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -37,10 +37,10 @@ public class SimpleCaseGenerator extends BaseHiveASTGenerator {
   @Override
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
-    ASTNode ret = super.newHiveASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode ret = super.newHiveASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
     super.attachHiveNode(hiveRoot, currentHiveNode, ret);
     //transfer to standard CASE WHEN expression THEN compval [WHEN expression THEN compval]* [ELSE result] END
-    ASTNode whenNode = super.newHiveASTNode(HiveParser.KW_WHEN, "when");
+    ASTNode whenNode = super.newHiveASTNode(PantheraHiveParser.KW_WHEN, "when");
     super.attachHiveNode(hiveRoot, ret, whenNode);
     if (!(currentSqlNode.getChildCount() >= 2)) {
       throw new SqlXlateException(currentSqlNode, "Parameters error in simple case expression.");
@@ -59,7 +59,7 @@ public class SimpleCaseGenerator extends BaseHiveASTGenerator {
         }
       } else {
         //when-then clause
-        ASTNode equal = SqlXlateUtil.newASTNode(HiveParser.EQUAL_NS, "<=>");
+        ASTNode equal = SqlXlateUtil.newASTNode(PantheraHiveParser.EQUAL_NS, "<=>");
         ret.addChild(equal);
         HiveASTGenerator generatorL = GeneratorFactory.getGenerator((CommonTree) currentSqlNode.getChild(0));
         if (generatorL == null) {

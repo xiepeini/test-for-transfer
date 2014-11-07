@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -37,7 +37,7 @@ public class OverGenerator extends BaseHiveASTGenerator {
   @Override
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
-    ASTNode winSpec = SqlXlateUtil.newASTNode(HiveParser.TOK_WINDOWSPEC, "TOK_WINDOWSPEC");
+    ASTNode winSpec = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_WINDOWSPEC, "TOK_WINDOWSPEC");
     super.attachHiveNode(hiveRoot, currentHiveNode, winSpec);
     if (currentSqlNode.getChildCount() == 0
         // for case "over w1" where w1 is window alias. (Currently SQLParser doesn't support this syntax)
@@ -46,7 +46,7 @@ public class OverGenerator extends BaseHiveASTGenerator {
             && currentSqlNode.getChild(0).getType() == PantheraParser_PLSQLParser.ID)) {
       return super.generateChildren(hiveRoot, sqlRoot, winSpec, currentSqlNode, context);
     }
-    ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.TOK_PARTITIONINGSPEC, "TOK_PARTITIONINGSPEC");
+    ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_PARTITIONINGSPEC, "TOK_PARTITIONINGSPEC");
     super.attachHiveNode(hiveRoot, winSpec, ret);
     return super.generateChildren(hiveRoot, sqlRoot, ret, currentSqlNode, context);
   }

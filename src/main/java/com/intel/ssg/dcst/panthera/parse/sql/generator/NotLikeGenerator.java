@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -37,9 +37,9 @@ public class NotLikeGenerator extends BaseHiveASTGenerator {
     //
     // Create a HIVE KW_NOT node and attach it to the current HIVE node.
     //
-    ASTNode ret = SqlXlateUtil.newASTNode(HiveParser.KW_NOT, "not");
+    ASTNode ret = SqlXlateUtil.newASTNode(PantheraHiveParser.KW_NOT, "not");
     attachHiveNode(hiveRoot, currentHiveNode, ret);
-    return super.baseProcess(HiveParser.KW_LIKE, "like", hiveRoot, sqlRoot, ret, currentSqlNode, context);
+    return super.baseProcess(PantheraHiveParser.KW_LIKE, "like", hiveRoot, sqlRoot, ret, currentSqlNode, context);
   }
 
 }

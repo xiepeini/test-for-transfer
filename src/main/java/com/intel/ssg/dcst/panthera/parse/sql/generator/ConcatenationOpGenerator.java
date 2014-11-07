@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -37,8 +37,8 @@ public class ConcatenationOpGenerator extends BaseHiveASTGenerator {
   public boolean generate(ASTNode hiveRoot, CommonTree sqlRoot, ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
 
-    ASTNode tokFunc = super.newHiveASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
-    ASTNode funcName = super.newHiveASTNode(HiveParser.Identifier, "concat");
+    ASTNode tokFunc = super.newHiveASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode funcName = super.newHiveASTNode(PantheraHiveParser.Identifier, "concat");
 
     super.attachHiveNode(hiveRoot, currentHiveNode, tokFunc);
     super.attachHiveNode(hiveRoot, tokFunc, funcName);

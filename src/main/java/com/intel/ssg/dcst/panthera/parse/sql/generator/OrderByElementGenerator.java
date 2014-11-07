@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -36,12 +36,12 @@ public class OrderByElementGenerator extends BaseHiveASTGenerator {
     if (currentSqlNode.getChildCount() == 2) {
       int ruleType = currentSqlNode.getChild(1).getType();
       if (ruleType == PantheraParser_PLSQLParser.SQL92_RESERVED_ASC) {
-        ret = SqlXlateUtil.newASTNode(HiveParser.TOK_TABSORTCOLNAMEASC, "TOK_TABSORTCOLNAMEASC");
+        ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_TABSORTCOLNAMEASC, "TOK_TABSORTCOLNAMEASC");
       } else {
-        ret = SqlXlateUtil.newASTNode(HiveParser.TOK_TABSORTCOLNAMEDESC, "TOK_TABSORTCOLNAMEDESC");
+        ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_TABSORTCOLNAMEDESC, "TOK_TABSORTCOLNAMEDESC");
       }
     } else {
-      ret = SqlXlateUtil.newASTNode(HiveParser.TOK_TABSORTCOLNAMEASC, "TOK_TABSORTCOLNAMEASC");
+      ret = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_TABSORTCOLNAMEASC, "TOK_TABSORTCOLNAMEASC");
     }
     super.attachHiveNode(hiveRoot, currentHiveNode, ret);
     return super.generateChildren(hiveRoot, sqlRoot, ret, currentSqlNode, context);

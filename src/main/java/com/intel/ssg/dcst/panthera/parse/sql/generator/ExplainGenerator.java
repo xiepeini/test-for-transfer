@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.ExplainSession;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
@@ -34,7 +34,7 @@ public class ExplainGenerator extends BaseHiveASTGenerator {
 
     ExplainSession.setExplain();
 
-    ASTNode explainNode = SqlXlateUtil.newASTNode(HiveParser.TOK_EXPLAIN, "TOK_EXPLAIN");
+    ASTNode explainNode = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_EXPLAIN, "TOK_EXPLAIN");
     currentHiveNode.addChild(explainNode);
     return generateChildren(hiveRoot, sqlRoot, explainNode, currentSqlNode, context);
   }

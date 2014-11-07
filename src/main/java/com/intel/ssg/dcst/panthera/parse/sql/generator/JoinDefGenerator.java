@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.PantheraExpParser;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
@@ -34,17 +34,17 @@ public class JoinDefGenerator extends BaseHiveASTGenerator {
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
     ASTNode join;
     if (currentSqlNode.getChild(0).getType() == PantheraParser_PLSQLParser.FULL_VK) {
-      join = super.newHiveASTNode(HiveParser.TOK_FULLOUTERJOIN, "TOK_FULLOUTERJOIN");
+      join = super.newHiveASTNode(PantheraHiveParser.TOK_FULLOUTERJOIN, "TOK_FULLOUTERJOIN");
     } else if (currentSqlNode.getChild(0).getType() == PantheraParser_PLSQLParser.LEFT_VK) {
-      join = super.newHiveASTNode(HiveParser.TOK_LEFTOUTERJOIN, "TOK_LEFTOUTERJOIN");
+      join = super.newHiveASTNode(PantheraHiveParser.TOK_LEFTOUTERJOIN, "TOK_LEFTOUTERJOIN");
     } else if (currentSqlNode.getChild(0).getType() == PantheraParser_PLSQLParser.RIGHT_VK) {
-      join = super.newHiveASTNode(HiveParser.TOK_RIGHTOUTERJOIN, "TOK_RIGHTOUTERJOIN");
+      join = super.newHiveASTNode(PantheraHiveParser.TOK_RIGHTOUTERJOIN, "TOK_RIGHTOUTERJOIN");
     } else if (currentSqlNode.getChild(0).getType() == PantheraParser_PLSQLParser.CROSS_VK) {
-      join = super.newHiveASTNode(HiveParser.TOK_CROSSJOIN, "TOK_CROSSJOIN");
+      join = super.newHiveASTNode(PantheraHiveParser.TOK_CROSSJOIN, "TOK_CROSSJOIN");
     } else if (currentSqlNode.getChild(0).getType() == PantheraExpParser.LEFTSEMI_VK) {
-      join = super.newHiveASTNode(HiveParser.TOK_LEFTSEMIJOIN, "TOK_LEFTSEMIJOIN");
+      join = super.newHiveASTNode(PantheraHiveParser.TOK_LEFTSEMIJOIN, "TOK_LEFTSEMIJOIN");
     } else {
-      join = super.newHiveASTNode(HiveParser.TOK_JOIN, "TOK_JOIN");
+      join = super.newHiveASTNode(PantheraHiveParser.TOK_JOIN, "TOK_JOIN");
     }
     ASTNode firstTableRefElement = (ASTNode) currentHiveNode.deleteChild(0);
     super.attachHiveNode(hiveRoot, join, firstTableRefElement);

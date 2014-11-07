@@ -22,7 +22,7 @@ import java.util.Iterator;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.Tree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -100,20 +100,20 @@ public abstract class BaseHiveASTGenerator implements HiveASTGenerator {
   }
 
   ASTNode buildTmpDestinationNode() {
-    ASTNode desNode = SqlXlateUtil.newASTNode(HiveParser.TOK_DESTINATION, "TOK_DESTINATION");
-    ASTNode dirNode = SqlXlateUtil.newASTNode(HiveParser.TOK_DIR, "TOK_DIR");
+    ASTNode desNode = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_DESTINATION, "TOK_DESTINATION");
+    ASTNode dirNode = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_DIR, "TOK_DIR");
     desNode.addChild(dirNode);
-    ASTNode tmpNode = SqlXlateUtil.newASTNode(HiveParser.TOK_TMP_FILE, "TOK_TMP_FILE");
+    ASTNode tmpNode = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_TMP_FILE, "TOK_TMP_FILE");
     dirNode.addChild(tmpNode);
     return desNode;
 
   }
 
   ASTNode buildAllColRef() {
-    ASTNode select = SqlXlateUtil.newASTNode(HiveParser.TOK_SELECT, "TOK_SELECT");
-    ASTNode selExpr = SqlXlateUtil.newASTNode(HiveParser.TOK_SELEXPR, "TOK_SELEXPR");
+    ASTNode select = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_SELECT, "TOK_SELECT");
+    ASTNode selExpr = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_SELEXPR, "TOK_SELEXPR");
     select.addChild(selExpr);
-    ASTNode allColRef = SqlXlateUtil.newASTNode(HiveParser.TOK_ALLCOLREF, "TOK_ALLCOLREF");
+    ASTNode allColRef = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_ALLCOLREF, "TOK_ALLCOLREF");
     selExpr.addChild(allColRef);
     return select;
   }
@@ -175,13 +175,13 @@ public abstract class BaseHiveASTGenerator implements HiveASTGenerator {
   boolean nullOrNotGenerator(boolean isNull, ASTNode hiveRoot, CommonTree sqlRoot,
       ASTNode currentHiveNode,
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
-    ASTNode ret = this.newHiveASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+    ASTNode ret = this.newHiveASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
     this.attachHiveNode(hiveRoot, currentHiveNode, ret);
     currentHiveNode = ret;
     if (isNull) {
-      ret = this.newHiveASTNode(HiveParser.TOK_ISNULL, "TOK_ISNULL");
+      ret = this.newHiveASTNode(PantheraHiveParser.TOK_ISNULL, "TOK_ISNULL");
     } else {
-      ret = this.newHiveASTNode(HiveParser.TOK_ISNOTNULL, "TOK_ISNOTNULL");
+      ret = this.newHiveASTNode(PantheraHiveParser.TOK_ISNOTNULL, "TOK_ISNOTNULL");
     }
     this.attachHiveNode(hiveRoot, currentHiveNode, ret);
     return this.generateChildren(hiveRoot, sqlRoot, currentHiveNode, currentSqlNode, context);

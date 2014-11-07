@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.TranslateContext;
@@ -33,7 +33,7 @@ public class LikeGenerator extends BaseHiveASTGenerator {
       CommonTree currentSqlNode, TranslateContext context) throws SqlXlateException {
     // handle escape first if there is.
     preprocessEscape(currentSqlNode);
-    return super.baseProcess(HiveParser.KW_LIKE, "like", hiveRoot, sqlRoot, currentHiveNode, currentSqlNode, context);
+    return super.baseProcess(PantheraHiveParser.KW_LIKE, "like", hiveRoot, sqlRoot, currentHiveNode, currentSqlNode, context);
   }
 
   /**

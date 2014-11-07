@@ -19,7 +19,7 @@ package com.intel.ssg.dcst.panthera.parse.sql.generator;
 
 import org.antlr.runtime.tree.CommonTree;
 import org.apache.hadoop.hive.ql.parse.ASTNode;
-import org.apache.hadoop.hive.ql.parse.HiveParser;
+import com.intel.ssg.dcst.panthera.parse.ql.PantheraHiveParser;
 
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateException;
 import com.intel.ssg.dcst.panthera.parse.sql.SqlXlateUtil;
@@ -38,17 +38,17 @@ public class StandardFunctionGenerator extends BaseHiveASTGenerator {
     ASTNode tokFunc;
 
     if (currentSqlNode.getType() == PantheraParser_PLSQLParser.ROUTINE_CALL) {
-      tokFunc = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+      tokFunc = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
       assert(currentSqlNode.getChild(0) != null && currentSqlNode.getChild(0).getChild(0) != null);
       CommonTree arguments = (CommonTree) currentSqlNode.getFirstChildWithType(PantheraParser_PLSQLParser.ARGUMENTS);
       if (currentSqlNode.getChild(0).getChild(0).getText().equalsIgnoreCase("nullif")) {
         // nullif(a,b) should be generated as (case when a=b then null else a end)
         super.attachHiveNode(hiveRoot, currentHiveNode, tokFunc);
-        ASTNode whenNode = super.newHiveASTNode(HiveParser.KW_WHEN, "when");
+        ASTNode whenNode = super.newHiveASTNode(PantheraHiveParser.KW_WHEN, "when");
         super.attachHiveNode(hiveRoot, tokFunc, whenNode);
-        ASTNode eqNode = super.newHiveASTNode(HiveParser.EQUAL, "=");
+        ASTNode eqNode = super.newHiveASTNode(PantheraHiveParser.EQUAL, "=");
         super.attachHiveNode(hiveRoot, tokFunc, eqNode);
-        ASTNode nullNode = super.newHiveASTNode(HiveParser.TOK_NULL, "TOK_NULL");
+        ASTNode nullNode = super.newHiveASTNode(PantheraHiveParser.TOK_NULL, "TOK_NULL");
         super.attachHiveNode(hiveRoot, tokFunc, nullNode);
         assert(arguments != null && arguments.getChildCount() == 2);
         return super.generateChildren(hiveRoot, sqlRoot, tokFunc, (CommonTree) arguments.getChild(0), context)
@@ -63,7 +63,7 @@ public class StandardFunctionGenerator extends BaseHiveASTGenerator {
             CommonTree distinct = (CommonTree) expr
                 .getFirstChildWithType(PantheraParser_PLSQLParser.SQL92_RESERVED_DISTINCT);
             if (distinct != null) {
-              tokFunc = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTIONDI, "TOK_FUNCTIONDI");
+              tokFunc = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTIONDI, "TOK_FUNCTIONDI");
             }
           }
         }
@@ -74,14 +74,14 @@ public class StandardFunctionGenerator extends BaseHiveASTGenerator {
       assert (arg1 != null);
       if (arg1.getType() == PantheraParser_PLSQLParser.ASTERISK) {
         if (arg1.getChildCount() > 0) {
-          tokFunc = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+          tokFunc = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
         } else {
-          tokFunc = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTIONSTAR, "TOK_FUNCTIONSTAR");
+          tokFunc = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTIONSTAR, "TOK_FUNCTIONSTAR");
         }
       } else if (SqlXlateUtil.hasNodeTypeInTree(node, PantheraParser_PLSQLParser.SQL92_RESERVED_DISTINCT)) {
-        tokFunc = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTIONDI, "TOK_FUNCTIONDI");
+        tokFunc = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTIONDI, "TOK_FUNCTIONDI");
       } else {
-        tokFunc = SqlXlateUtil.newASTNode(HiveParser.TOK_FUNCTION, "TOK_FUNCTION");
+        tokFunc = SqlXlateUtil.newASTNode(PantheraHiveParser.TOK_FUNCTION, "TOK_FUNCTION");
       }
     }
     super.attachHiveNode(hiveRoot, currentHiveNode, tokFunc);
